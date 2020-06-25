@@ -12,7 +12,7 @@ class DQCalendar:
 	MONTH_LENGTH = 30
 	FEST_DAYS = {'H': 91, 'F': 182, 'D': 273, 'B': 364}
 
-	YFMT = r'(?P<year>[\de]+)/((?P<month>\d{1,2})/(?P<day>[0-3]?\d)|(?P<fest>[BDFH]))'
+	YFMT = r'(?P<year>[\de]+)/((?P<month>[0-1]?\d)/(?P<day>[0-3]?\d)|(?P<fest>[BDFH]))'
 
 	def date_to_dse(date_string):
 		year = 0
