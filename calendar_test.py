@@ -7,7 +7,7 @@ class Test(unittest.TestCase):
 	
 	def setUp(self):
 		self.curr_date = '05/22'
-		self.curr_num = 144
+		self.curr_num = 143
 		self.day_one = '01/01'
 		self.day_one_num = 1
 		self.heb_date = 'H'

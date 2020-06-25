@@ -10,7 +10,7 @@ class DQCalendar:
 	FESTIVALS = ['Heb', 'Fion', 'Dai', 'Bayur']
 	YEAR_LENGTH = 364
 	MONTH_LENGTH = 30
-	FEST_DAYS = {'H': 1, 'F': 92, 'D': 183, 'B': 274}
+	FEST_DAYS = {'H': 91, 'F': 182, 'D': 273, 'B': 364}
 
 	YFMT = r'(?P<year>[\de]+)/((?P<month>\d{2})/(?P<day>[0-3]\d)|(?P<fest>[BDFH]))'
 
@@ -34,7 +34,7 @@ class DQCalendar:
 				month = int(ddict['month'])
 				day = int(ddict['day'])
 
-				dse = year*DQCalendar.YEAR_LENGTH + (month-1)*DQCalendar.MONTH_LENGTH + day + (month-1)//3 +1
+				dse = year*DQCalendar.YEAR_LENGTH + (month-1)*DQCalendar.MONTH_LENGTH + day + (month-4)//3 + 1
 
 			else:
 				fest = ddict['fest']
@@ -59,7 +59,7 @@ class DQCalendar:
 			
 			date_string = f'{year}/{fest}'
 		else:
-			rem = rem-((rem-1)//(DQCalendar.YEAR_LENGTH//4)+2)
+			rem = rem-((rem)//(DQCalendar.YEAR_LENGTH//4)+1)
 
 			month = (rem)//DQCalendar.MONTH_LENGTH+1
 
