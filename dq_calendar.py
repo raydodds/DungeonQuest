@@ -70,6 +70,8 @@ class DQCalendar:
 		return date_string
 
 	
+
+	
 class DQDate:
 	def __init__(self, date):
 		if type(date) == str:
@@ -80,8 +82,33 @@ class DQDate:
 			raise TypeError("Invalid type for date")
 
 	def days_between(self, other):
-		if(type(other) == DQDate):
+		if type(other) == DQDate:
 			raise TypeError("Date comparisons require two dates")
 		return abs(self.date-other.date)
+
+	def is_holiday(self):
+		if ((self.dse-1) % 364)+1 in DQCalendar.FEST_DAYS.values():
+			return True
+		else
+			return False
+
+	def get_day(self):
+		if self.is_holiday():
+			return self._get_holiday_name()
+		else:
+			return DQCalendar.DAYS[self._get_month_day()%6]
+	
+	def _get_holiday_name(self):
+		if self.is_holiday():
+			return DQCalendar.FESTIVALS[((self.dse-1)%DQCalendar.YEAR_LENGTH)//(DQCalendar.YEAR_LENGTH//4)]
+		else:
+			return None
+
+	def _get_month_day(self):
+		pass
+
+
+
+
 
 
