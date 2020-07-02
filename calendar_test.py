@@ -7,17 +7,17 @@ class Test(unittest.TestCase):
 	
 	def setUp(self):
 		self.curr_date = '05/22'
-		self.curr_num = 144
+		self.curr_num = 143
 		self.day_one = '01/01'
-		self.day_one_num = 2
+		self.day_one_num = 1
 		self.heb_date = 'H'
-		self.heb_num = 1
+		self.heb_num = 91
 		self.fion_date = 'F'
-		self.fion_num = 92
+		self.fion_num = 182
 		self.dai_date = 'D'
-		self.dai_num = 183
+		self.dai_num = 273
 		self.bayur_date = 'B'
-		self.bayur_num = 274
+		self.bayur_num = 364
 		self.iters = 10
 
 	def tearDown(self):

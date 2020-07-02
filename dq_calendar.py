@@ -10,9 +10,9 @@ class DQCalendar:
 	FESTIVALS = ['Heb', 'Fion', 'Dai', 'Bayur']
 	YEAR_LENGTH = 364
 	MONTH_LENGTH = 30
-	FEST_DAYS = {'H': 1, 'F': 92, 'D': 183, 'B': 274}
+	FEST_DAYS = {'H': 91, 'F': 182, 'D': 273, 'B': 364}
 
-	YFMT = r'(?P<year>[\de]+)/((?P<month>\d{2})/(?P<day>[0-3]\d)|(?P<fest>[BDFH]))'
+	YFMT = r'(?P<year>[\de]+)/((?P<month>[0-1]?\d)/(?P<day>[0-3]?\d)|(?P<fest>[BDFH]))'
 
 	def date_to_dse(date_string):
 		year = 0
@@ -34,7 +34,7 @@ class DQCalendar:
 				month = int(ddict['month'])
 				day = int(ddict['day'])
 
-				dse = year*DQCalendar.YEAR_LENGTH + (month-1)*DQCalendar.MONTH_LENGTH + day + (month-1)//3 +1
+				dse = year*DQCalendar.YEAR_LENGTH + (month-1)*DQCalendar.MONTH_LENGTH + day + (month-4)//3 + 1
 
 			else:
 				fest = ddict['fest']
@@ -59,7 +59,7 @@ class DQCalendar:
 			
 			date_string = f'{year}/{fest}'
 		else:
-			rem = rem-((rem-1)//(DQCalendar.YEAR_LENGTH//4)+2)
+			rem = rem-((rem)//(DQCalendar.YEAR_LENGTH//4)+1)
 
 			month = (rem)//DQCalendar.MONTH_LENGTH+1
 
@@ -69,6 +69,15 @@ class DQCalendar:
 
 		return date_string
 
+	# TODO	Write a wrapper which converts dates to DSE
+
+	# TODO	Write a wrapper which removes year
+
+	# TODO	date_is_holiday - move from DQDate
+	#		date_to_day_name - Move from DQDate
+	#		date_to_festival_name
+	#		date_to_month_day
+	#		date_to_monthr
 	
 class DQDate:
 	def __init__(self, date):
@@ -80,8 +89,31 @@ class DQDate:
 			raise TypeError("Invalid type for date")
 
 	def days_between(self, other):
-		if(type(other) == DQDate):
+		if type(other) == DQDate:
 			raise TypeError("Date comparisons require two dates")
 		return abs(self.date-other.date)
+
+	def is_festival(self):
+		if ((self.dse-1) % 364)+1 in DQCalendar.FEST_DAYS.values():
+			return True
+		else
+			return False
+
+	def get_day(self):
+		if self.is_festival():
+			return self._get_festival_name()
+		else:
+			return DQCalendar.DAYS[self._get_month_day()%6]
+	
+	def _get_festival_name(self):
+		if self.is_festival():
+			return DQCalendar.FESTIVALS[((self.dse-1)%DQCalendar.YEAR_LENGTH)//(DQCalendar.YEAR_LENGTH//4)]
+		else:
+			return None
+
+
+
+
+
 
 
