@@ -96,7 +96,7 @@ class DQDate:
 	def is_festival(self):
 		if ((self.dse-1) % 364)+1 in DQCalendar.FEST_DAYS.values():
 			return True
-		else
+		else:
 			return False
 
 	def get_day(self):
